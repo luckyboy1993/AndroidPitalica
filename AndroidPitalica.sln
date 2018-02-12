@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidPitalica", "AndroidPitalica\AndroidPitalica.csproj", "{1F57E5AA-CB35-4293-AA7E-66D16A218DB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AndroidPitalica", "AndroidPitalica\AndroidPitalica.csproj", "{1F57E5AA-CB35-4293-AA7E-66D16A218DB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidPitalica.DAL", "AndroidPitalica.DAL\AndroidPitalica.DAL.csproj", "{F3F9864E-B2B5-451A-80E6-7530AD6B82D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1F57E5AA-CB35-4293-AA7E-66D16A218DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F57E5AA-CB35-4293-AA7E-66D16A218DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F57E5AA-CB35-4293-AA7E-66D16A218DB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3F9864E-B2B5-451A-80E6-7530AD6B82D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3F9864E-B2B5-451A-80E6-7530AD6B82D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3F9864E-B2B5-451A-80E6-7530AD6B82D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3F9864E-B2B5-451A-80E6-7530AD6B82D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
