@@ -10,15 +10,18 @@ namespace AndroidPitalica.DAL.Entities
         [Key]
         public int Id { get; set; }
         public int Score { get; set; }
-        public int Answered { get; set; }
-        public int CorrectAnswer { get; set; }
+        public string Answered { get; set; }
+        public string CorrectAnswer { get; set; }
 
         [ForeignKey("Question")]
         public int QuestionId { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
+        [ForeignKey("Exam")]
+        public int ExamId { get; set; }
 
         public virtual User User { get; set; }
         public virtual Question Question { get; set; }
+        public virtual Exam Exam { get; set; }
     }
 }

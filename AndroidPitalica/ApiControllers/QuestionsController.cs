@@ -46,6 +46,24 @@ namespace AndroidPitalica.ApiControllers
             return Ok(question);
         }
 
+        [HttpGet("GetExamQuestions/{id:int?}")]
+        public IActionResult GetExamQuestions(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var examQuestions = _context.Questions.Where(q => q.ExamId == id);
+
+            if (examQuestions == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(examQuestions);
+        }
+
         // PUT: api/Questions/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)

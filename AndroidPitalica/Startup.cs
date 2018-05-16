@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AndroidPitalica.DAL.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,6 +59,34 @@ namespace AndroidPitalica
                     name: "TryGetUser",
                     template: "Users/TryGetUser",
                     defaults: new { controller = "GuestMeals", action = "TryGetUser" });
+
+                routes.MapRoute(
+                name: "ExamsTaken",
+                template: "Exams/GetExamsTaken/{id?}",
+                defaults: new { controller = "Exams", action = "GetExamsTaken" },
+                    constraints: new { id = new IntRouteConstraint() }
+                    );
+
+                routes.MapRoute(
+                name: "ExamsCreated",
+                template: "Exams/GetExamsCreated/{id?}",
+                defaults: new { controller = "Exams", action = "GetExamsCreated" },
+                    constraints: new { id = new IntRouteConstraint() }
+                    );
+
+                routes.MapRoute(
+                name: "ExamQuestions",
+                template: "Questions/GetExamQuestions/{id?}",
+                defaults: new { controller = "Questions", action = "GetExamQuestions" },
+                    constraints: new { id = new IntRouteConstraint() }
+                    );
+
+                routes.MapRoute(
+                name: "ExamResults",
+                template: "Exams/GetExamResults/{examId?}/{userId?}",
+                defaults: new { controller = "Exams", action = "GetExamResults" },
+                    constraints: new { examId = new IntRouteConstraint(), userId = new IntRouteConstraint() }
+                    );
             });
         }
     }

@@ -6,27 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AndroidPitalica.DAL.Entities;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace AndroidPitalica.Controllers
 {
-    public class UsersController : Controller
+    public class ExamsController : Controller
     {
         private readonly PitalicaContext _context;
 
-        public UsersController(PitalicaContext context)
+        public ExamsController(PitalicaContext context)
         {
             _context = context;
         }
 
-        // GET: Users
+        // GET: Exams
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            var pitalicaContext = _context.Exams.Include(e => e.Creator);
+            return View(await pitalicaContext.ToListAsync());
         }
 
-        // GET: Users/Details/5
+        // GET: Exams/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,47 +33,42 @@ namespace AndroidPitalica.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var exam = await _context.Exams
+                .Include(e => e.Creator)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (exam == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(exam);
         }
 
-        // GET: Users/Create
+        // GET: Exams/Create
         public IActionResult Create()
         {
+            ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Exams/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FullName,Password")] User user)
+        public async Task<IActionResult> Create([Bind("Id,CreatorId,ExamTitle")] Exam exam)
         {
             if (ModelState.IsValid)
             {
-                using (var sha256 = SHA256.Create())
-                {
-                    // Send a sample text to hash.  
-                    var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(user.Password));
-                    // Get the hashed string.  
-                    user.Password = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-                }
-
-                _context.Add(user);
+                _context.Add(exam);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "Id", exam.CreatorId);
+            return View(exam);
         }
 
-        // GET: Users/Edit/5
+        // GET: Exams/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,22 +76,23 @@ namespace AndroidPitalica.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            var exam = await _context.Exams.SingleOrDefaultAsync(m => m.Id == id);
+            if (exam == null)
             {
                 return NotFound();
             }
-            return View(user);
+            ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "Id", exam.CreatorId);
+            return View(exam);
         }
 
-        // POST: Users/Edit/5
+        // POST: Exams/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Password")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CreatorId,ExamTitle")] Exam exam)
         {
-            if (id != user.Id)
+            if (id != exam.Id)
             {
                 return NotFound();
             }
@@ -106,12 +101,12 @@ namespace AndroidPitalica.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(exam);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!ExamExists(exam.Id))
                     {
                         return NotFound();
                     }
@@ -122,10 +117,11 @@ namespace AndroidPitalica.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            ViewData["CreatorId"] = new SelectList(_context.Users, "Id", "Id", exam.CreatorId);
+            return View(exam);
         }
 
-        // GET: Users/Delete/5
+        // GET: Exams/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,30 +129,31 @@ namespace AndroidPitalica.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
+            var exam = await _context.Exams
+                .Include(e => e.Creator)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (exam == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(exam);
         }
 
-        // POST: Users/Delete/5
+        // POST: Exams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Users.Remove(user);
+            var exam = await _context.Exams.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Exams.Remove(exam);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(int id)
+        private bool ExamExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Exams.Any(e => e.Id == id);
         }
     }
 }

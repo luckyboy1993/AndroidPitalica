@@ -46,6 +46,61 @@ namespace AndroidPitalica.ApiControllers
             return Ok(exam);
         }
 
+        [HttpGet("GetExamsTaken/{id:int?}")]
+        public IActionResult GetExamsTaken(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var examsTaken = _context.UserExamTaken.Where(uet => uet.UserId == id).Select(uet => uet.Exam);
+            //var exams = _context.Exams.Where(e => e. == id);
+
+            if (examsTaken == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(examsTaken);
+        }
+
+        [HttpGet("GetExamsCreated/{id:int?}")]
+        public IActionResult GetExamCreated(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var examsCreated = _context.Exams.Where(e => e.CreatorId == id);
+
+            if (examsCreated == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(examsCreated);
+        }
+
+        [HttpGet("GetExamResults/{examId:int?}/{userId:int?}")]
+        public IActionResult GetExamResults(int examId, int userId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var questionResults = _context.QuestionResults.Where(qr => qr.ExamId == examId && qr.UserId == userId);
+
+            if (questionResults == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(questionResults);
+        }
+
         // PUT: api/Exams/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExam([FromRoute] int id, [FromBody] Exam exam)

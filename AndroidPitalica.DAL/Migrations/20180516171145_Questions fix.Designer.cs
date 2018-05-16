@@ -11,9 +11,10 @@ using System;
 namespace AndroidPitalica.DAL.Migrations
 {
     [DbContext(typeof(PitalicaContext))]
-    partial class PitalicaContextModelSnapshot : ModelSnapshot
+    [Migration("20180516171145_Questions fix")]
+    partial class Questionsfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
