@@ -28,7 +28,7 @@ namespace AndroidPitalica.ApiControllers
         }
 
         // GET: api/QuestionResults/5
-        [HttpGet("{id}")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> GetQuestionResult([FromRoute] int id)
         {
             if (!ModelState.IsValid)

@@ -46,7 +46,7 @@ namespace AndroidPitalica.ApiControllers
             return Ok(question);
         }
 
-        [HttpGet("GetExamQuestions/{id:int?}")]
+        [HttpPost("GetExamQuestions/{id:int?}")]
         public IActionResult GetExamQuestions(int id)
         {
             if (!ModelState.IsValid)

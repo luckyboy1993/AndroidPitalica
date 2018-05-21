@@ -28,7 +28,7 @@ namespace AndroidPitalica.ApiControllers
         }
 
         // GET: api/Exams/5
-        [HttpGet("{id}")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> GetExam([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace AndroidPitalica.ApiControllers
             return Ok(exam);
         }
 
-        [HttpGet("GetExamsTaken/{id:int?}")]
+        [HttpPost("GetExamsTaken/{id:int?}")]
         public IActionResult GetExamsTaken(int id)
         {
             if (!ModelState.IsValid)
@@ -54,7 +54,7 @@ namespace AndroidPitalica.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var examsTaken = _context.UserExamTaken.Where(uet => uet.UserId == id).Select(uet => uet.Exam).Include(uet=>uet.Questions);
+            var examsTaken = _context.UserExamTaken.Where(uet => uet.UserId == id).Select(uet => uet.Exam).Include(uet => uet.Questions);
             //var exams = _context.Exams.Where(e => e. == id);
 
             if (examsTaken == null)
@@ -65,7 +65,7 @@ namespace AndroidPitalica.ApiControllers
             return Ok(examsTaken);
         }
 
-        [HttpGet("GetExamsCreated/{id:int?}")]
+        [HttpPost("GetExamsCreated/{id:int?}")]
         public IActionResult GetExamCreated(int id)
         {
             if (!ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace AndroidPitalica.ApiControllers
             return Ok(examsCreated);
         }
 
-        [HttpGet("GetExamResults/{examId:int?}/{userId:int?}")]
+        [HttpPost("GetExamResults/{examId:int?}/{userId:int?}")]
         public IActionResult GetExamResults(int examId, int userId)
         {
             if (!ModelState.IsValid)
