@@ -27,6 +27,31 @@ namespace AndroidPitalica.ApiControllers
             return _context.UserExamTaken;
         }
 
+        //[HttpGet("InsertExamTaken/{examId:int?}/{userId:int?}")]
+        //public IActionResult InsertExamTaken(int examId, int userId)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var any = _context.UserExamTaken.FirstOrDefaultAsync(uet => uet.UserId == userId && uet.ExamId == examId);
+
+        //    if (any != null)
+        //    {
+        //        _context.UserExamTaken.
+        //    }
+
+        //    var questionResults = _context.QuestionResults.Where(qr => qr.ExamId == examId && qr.UserId == userId);
+
+        //    if (questionResults == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(questionResults);
+        //}
+
         // GET: api/UserExamTakens/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserExamTaken([FromRoute] int id)
@@ -46,40 +71,40 @@ namespace AndroidPitalica.ApiControllers
             return Ok(userExamTaken);
         }
 
-        // PUT: api/UserExamTakens/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserExamTaken([FromRoute] int id, [FromBody] UserExamTaken userExamTaken)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/UserExamTakens/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutUserExamTaken([FromRoute] int id, [FromBody] UserExamTaken userExamTaken)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != userExamTaken.UserId)
-            {
-                return BadRequest();
-            }
+        //    if (id != userExamTaken.UserId)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(userExamTaken).State = EntityState.Modified;
+        //    _context.Entry(userExamTaken).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExamTakenExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!UserExamTakenExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // POST: api/UserExamTakens
         [HttpPost]
@@ -97,7 +122,7 @@ namespace AndroidPitalica.ApiControllers
             }
             catch (DbUpdateException)
             {
-                if (UserExamTakenExists(userExamTaken.UserId))
+                if (UserExamTakenExists(userExamTaken.UserId, userExamTaken.ExamId))
                 {
                     return new StatusCodeResult(StatusCodes.Status409Conflict);
                 }
@@ -131,9 +156,9 @@ namespace AndroidPitalica.ApiControllers
             return Ok(userExamTaken);
         }
 
-        private bool UserExamTakenExists(int id)
+        private bool UserExamTakenExists(int userId, int examId)
         {
-            return _context.UserExamTaken.Any(e => e.UserId == id);
+            return _context.UserExamTaken.Any(e => e.UserId == userId&& e.ExamId == examId);
         }
     }
 }

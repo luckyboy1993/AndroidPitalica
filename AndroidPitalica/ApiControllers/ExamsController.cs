@@ -54,7 +54,7 @@ namespace AndroidPitalica.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var examsTaken = _context.UserExamTaken.Where(uet => uet.UserId == id).Select(uet => uet.Exam);
+            var examsTaken = _context.UserExamTaken.Where(uet => uet.UserId == id).Select(uet => uet.Exam).Include(uet=>uet.Questions);
             //var exams = _context.Exams.Where(e => e. == id);
 
             if (examsTaken == null)
