@@ -1,70 +1,70 @@
-﻿@model AndroidPitalica.DAL.Entities.Question
+﻿@*@model androidpitalica.dal.entities.question
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    viewdata["title"] = "create";
+    layout = "~/views/shared/_layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>create</h2>
 
-<h4>Question</h4>
+<h4>question</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="create">
+            <div asp-validation-summary="modelonly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="QuestionText" class="control-label"></label>
-                <input asp-for="QuestionText" class="form-control" />
-                <span asp-validation-for="QuestionText" class="text-danger"></span>
+                <label asp-for="questiontext" class="control-label"></label>
+                <input asp-for="questiontext" class="form-control" />
+                <span asp-validation-for="questiontext" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CorrectAnswer" class="control-label"></label>
-                <input asp-for="CorrectAnswer" class="form-control" />
-                <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+                <label asp-for="correctanswer" class="control-label"></label>
+                <input asp-for="correctanswer" class="form-control" />
+                <span asp-validation-for="correctanswer" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WrongAnswers" class="control-label"></label>
-                <input asp-for="WrongAnswers" class="form-control" />
-                <span asp-validation-for="WrongAnswers" class="text-danger"></span>
+                <label asp-for="wronganswers" class="control-label"></label>
+                <input asp-for="wronganswers" class="form-control" />
+                <span asp-validation-for="wronganswers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Score" class="control-label"></label>
-                <input asp-for="Score" class="form-control" />
-                <span asp-validation-for="Score" class="text-danger"></span>
+                <label asp-for="score" class="control-label"></label>
+                <input asp-for="score" class="form-control" />
+                <span asp-validation-for="score" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExamId" class="control-label"></label>
-                <select asp-for="ExamId" class ="form-control" asp-items="ViewBag.ExamId"></select>
+                <label asp-for="examid" class="control-label"></label>
+                <select asp-for="examid" class ="form-control" asp-items="viewbag.examid"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Row" class="control-label"></label>
-                <input asp-for="Row" class="form-control" />
-                <span asp-validation-for="Row" class="text-danger"></span>
+                <label asp-for="row" class="control-label"></label>
+                <input asp-for="row" class="form-control" />
+                <span asp-validation-for="row" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Definition" class="control-label"></label>
-                <input asp-for="Definition" class="form-control" />
-                <span asp-validation-for="Definition" class="text-danger"></span>
+                <label asp-for="definition" class="control-label"></label>
+                <input asp-for="definition" class="form-control" />
+                <span asp-validation-for="definition" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="Visibility" /> @Html.DisplayNameFor(model => model.Visibility)
+                        <input asp-for="visibility" /> @html.displaynamefor(model => model.visibility)
                     </label>
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="create" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="index">back to list</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+@section scripts {
+    @{await html.renderpartialasync("_validationscriptspartial");}
+}*@
