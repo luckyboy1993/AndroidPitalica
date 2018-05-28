@@ -24,7 +24,7 @@ namespace AndroidPitalica.ApiControllers
         [HttpGet]
         public IEnumerable<Question> GetQuestions()
         {
-            return _context.Questions;
+            return _context.Questions.Include(q=>q.Exam);
         }
 
         // GET: api/Questions/5
@@ -54,7 +54,7 @@ namespace AndroidPitalica.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var examQuestions = _context.Questions.Where(q => q.ExamId == id);
+            var examQuestions = _context.Questions.Where(q => q.ExamId == id).Include(q=>q.Exam);
 
             if (examQuestions == null)
             {

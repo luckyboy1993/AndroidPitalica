@@ -24,19 +24,19 @@ namespace AndroidPitalica.ApiControllers
         [HttpGet]
         public IEnumerable<Exam> GetExams()
         {
-            return _context.Exams;
+            return _context.Exams.Include(e => e.Questions);
         }
 
         // GET: api/Exams/5
         [HttpPost("{id}")]
-        public async Task<IActionResult> GetExam([FromRoute] int id)
+        public IActionResult GetExam([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var exam = await _context.Exams.SingleOrDefaultAsync(m => m.Id == id);
+            var exam = _context.Exams.Include(e => e.Questions).SingleOrDefault(e => e.Id == id);
 
             if (exam == null)
             {
@@ -92,7 +92,7 @@ namespace AndroidPitalica.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var examsCreated = _context.Exams.Where(e => e.CreatorId == id);
+            var examsCreated = _context.Exams.Where(e => e.CreatorId == id).Include(e => e.Questions);
 
             if (examsCreated == null)
             {
@@ -110,7 +110,7 @@ namespace AndroidPitalica.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var questionResults = _context.QuestionResults.Where(qr => qr.ExamId == examId && qr.UserId == userId);
+            var questionResults = _context.QuestionResults.Where(qr => qr.ExamId == examId && qr.UserId == userId).Include(qr => qr.Question).Include(qr => qr.Exam);
 
             if (questionResults == null)
             {
@@ -156,8 +156,8 @@ namespace AndroidPitalica.ApiControllers
         }
 
         // POST: api/Exams
-        [HttpPost]
-        public async Task<IActionResult> PostExam([FromBody] Exam exam)
+        [HttpPost(("InsertExam"))]
+        public async Task<IActionResult> InsertExam([FromBody] Exam exam)
         {
             if (!ModelState.IsValid)
             {

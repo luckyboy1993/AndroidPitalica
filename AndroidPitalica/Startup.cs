@@ -68,6 +68,12 @@ namespace AndroidPitalica
                     );
 
                 routes.MapRoute(
+               name: "InsertExam",
+               template: "Exams/InsertExam",
+               defaults: new { controller = "Exams", action = "InsertExam" }
+                   );
+
+                routes.MapRoute(
                 name: "ExamsNotTaken",
                 template: "Exams/GetExamsNotTaken/{id?}",
                 defaults: new { controller = "Exams", action = "GetExamsNotTaken" },
