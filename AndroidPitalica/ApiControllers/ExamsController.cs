@@ -84,6 +84,24 @@ namespace AndroidPitalica.ApiControllers
             return Ok(examsNotTaken);
         }
 
+        [HttpPost("GetExamStudents/{id:int?}")]
+        public IActionResult GetExamStudents(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var examStudents = _context.UserExamTaken.Where(uet => uet.ExamId == id).Select(uet => uet.User);
+
+            if (examStudents == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(examStudents);
+        }
+
         [HttpPost("GetExamsCreated/{id:int?}")]
         public IActionResult GetExamCreated(int id)
         {
