@@ -72,8 +72,12 @@ namespace AndroidPitalica.ApiControllers
             {
                 return BadRequest(ModelState);
             }
+
+            var e = _context.UserExamTaken.Where(uet => uet.UserId != id);
+
+            var examsNotTaken = e.Where(uet => uet.Exam.CreatorId != id).Select(uet => uet.Exam).Include(uet => uet.Questions);
             
-            var examsNotTaken = _context.UserExamTaken.Where(uet => uet.UserId != id).Select(uet => uet.Exam).Include(uet => uet.Questions).Where(uet => uet.CreatorId != id);
+            //var examsNotTaken = _context.UserExamTaken.Where(uet => uet.UserId != id).Select(uet => uet.Exam).Include(uet => uet.Questions).Where(uet => uet.CreatorId != id);
             //var exams = _context.Exams.Where(e => e. == id);
 
             if (examsNotTaken == null)
