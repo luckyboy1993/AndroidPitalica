@@ -118,7 +118,7 @@ namespace AndroidPitalica.ApiControllers
             }
 
             return Ok(examsCreated);
-        }
+        }        
 
         [HttpPost("GetExamResults/{examId:int?}/{userId:int?}")]
         public IActionResult GetExamResults(int examId, int userId)
@@ -185,7 +185,30 @@ namespace AndroidPitalica.ApiControllers
             _context.Exams.Add(exam);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExam", new { id = exam.Id }, exam);
+            return CreatedAtAction("InsertExam", new { id = exam.Id }, exam);
+        }
+
+        [HttpPost("InsertExamResults")]
+        public async Task<IActionResult> InsertExamResults([FromBody] QuestionResultList questionResultList)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userExamTaken = new UserExamTaken
+            {
+                UserId = questionResultList.QuestionResults.First().UserId,
+                ExamId = questionResultList.QuestionResults.First().ExamId
+            };
+
+            _context.UserExamTaken.Add(userExamTaken);
+
+            _context.QuestionResults.AddRange(questionResultList.QuestionResults);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("InsertExamResults", new { id = userExamTaken.Id }, userExamTaken);
         }
 
         // DELETE: api/Exams/5
