@@ -75,7 +75,7 @@ namespace AndroidPitalica.ApiControllers
 
             //var e = _context.UserExamTaken.Where(uet => uet.UserId != id);
 
-            var examsNotTaken = _context.Exams.Where(ex => !ex.Students.Select(s => s.UserId).Contains(id)).Where(ex => ex.CreatorId != id);
+            var examsNotTaken = _context.Exams.Where(ex => !ex.Students.Select(s => s.UserId).Contains(id)).Where(ex => ex.CreatorId != id).Include(ex => ex.Questions);
 
             //var examsNotTaken = e.Where(uet => uet.Exam.CreatorId != id).Select(uet => uet.Exam).Include(uet => uet.Questions);
             
