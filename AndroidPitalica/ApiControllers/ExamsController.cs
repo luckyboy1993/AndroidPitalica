@@ -194,6 +194,23 @@ namespace AndroidPitalica.ApiControllers
             return CreatedAtAction("InsertExam", new { id = exam.Id }, exam);
         }
 
+        [HttpPost(("AddQuestion/{examId:int?}"))]
+        public async Task<IActionResult> AddQuestion(int examId, [FromBody] Question question)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            question.ExamId = examId;
+
+            _context.Questions.Add(question);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("AddQuestion", new { id = examId }, question);
+        }
+
         [HttpPost("InsertExamResults")]
         public async Task<IActionResult> InsertExamResults([FromBody] QuestionResultList questionResultList)
         {
