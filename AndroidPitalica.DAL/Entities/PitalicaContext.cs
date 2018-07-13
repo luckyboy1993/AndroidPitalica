@@ -22,8 +22,8 @@ namespace AndroidPitalica.DAL.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserExamTaken>()
-            .HasKey(t => new { t.UserId, t.ExamId });
+            //modelBuilder.Entity<UserExamTaken>()
+            //.HasKey(t => new { t.UserId, t.ExamId });
         }
     }
 }
